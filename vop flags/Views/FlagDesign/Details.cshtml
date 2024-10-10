@@ -1,0 +1,47 @@
+﻿@model Flagdesign
+<div class="container">
+    <div class="card">
+       <div class="card-header text-center text-uppercase">
+             Flag Details
+       </div>
+       <div class="card-body">
+           <div class="row">
+            I
+             <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="card-text text-uppercase"><strong>Id</strong></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="card-text">: @Model.Id</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="card-text text-uppercase"><strong>Flag Name</strong></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="card-text">: @Model.FlagName</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="card-text text-uppercase"><strong>Types</strong></p>
+                    </div>
+                    <div class="col-md-8">
+                        <p class="card-text">: @Model.Types</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="@Model.Flagview 100%" />
+            </div>
+           </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a asp-controller="FlagDesign" asp-action="Index" class="btn btn-danger">Back</a>
+            </div>
+        </div>
+       </div>
+    </div>
+</div>
