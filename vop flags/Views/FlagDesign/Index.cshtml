@@ -30,7 +30,7 @@
                 <tr>
                     <td width="40%">@item.FlagName</td>
                     <td width="40%">@item.Types</td>
-                        <td class="d-flex align-items-center justify-content-center">
+                        <td id="table" class="d-flex align-items-center justify-content-center">
                             <div class="w-75 btn-group" role="group">
                                 <a asp-controller="FlagDesign" asp-action="Details" asp-route-id="@item.Id"
                                    class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Details">
@@ -68,4 +68,8 @@
                    
     }
 </div>
-
+@section scripts{
+    <script>
+        $('.table').DataTable();
+    </script>
+}
