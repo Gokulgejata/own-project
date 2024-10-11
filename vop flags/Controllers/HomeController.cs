@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using vop_flags.Models;
+using Vopflag.Domain.Models;
 
 namespace vop_flags.Controllers
 {

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using vop_flags.Data;
+using Vopflag.Infrastructure.Common;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

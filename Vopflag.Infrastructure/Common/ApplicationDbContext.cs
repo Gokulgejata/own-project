@@ -1,8 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using vop_flags.Models;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Vopflag.Domain.Models;
 
-namespace vop_flags.Data
+namespace Vopflag.Infrastructure.Common
 {
     public class ApplicationDbContext : DbContext
     {

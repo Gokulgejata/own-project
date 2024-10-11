@@ -1,4 +1,10 @@
-namespace vop_flags.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Vopflag.Domain.Models
 {
     public class ErrorViewModel
     {

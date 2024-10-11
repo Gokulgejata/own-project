@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace vop_flags.Migrations
+namespace Vopflag.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -18,7 +18,7 @@ namespace vop_flags.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FlagName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Types = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Flagview = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Flagview = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using vop_flags.Data;
-using vop_flags.Models;
+using Vopflag.Domain.Models;
+using Vopflag.Infrastructure.Common;
+using Vopflag.Application.ApplicationConstants;
+
 
 namespace vop_flags.Controllers
 {
@@ -10,6 +12,8 @@ namespace vop_flags.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private object CommonMessage;
+
         public FlagDesignController(ApplicationDbContext dbcontext, IWebHostEnvironment webHostEnvironment)
         {
             _dbContext = dbcontext;
@@ -18,8 +22,8 @@ namespace vop_flags.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Flagdesign> vopflag = _dbContext.Flagdesign.ToList();
-            return View(vopflag);
+            List<Flagdesign> Vopflag = _dbContext.Flagdesign.ToList();
+            return View(Vopflag);
         }
         [HttpGet]
         public IActionResult create()
