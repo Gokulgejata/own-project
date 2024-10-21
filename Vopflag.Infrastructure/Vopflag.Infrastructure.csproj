@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Vopflag.Application\Vopflag.Application.csproj" />
     <ProjectReference Include="..\Vopflag.Domain\Vopflag.Domain.csproj" />
   </ItemGroup>
 

@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vopflag.Domain.Common;
 
 namespace Vopflag.Domain.Models
 {
-    public class Flagdesign
+    public class Flagdesign : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
+       
 
         [Required]
         [Display(Name = "Flag Name")]

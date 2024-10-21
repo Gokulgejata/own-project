@@ -12,7 +12,7 @@ namespace vop_flags.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private object CommonMessage;
+
 
         public FlagDesignController(ApplicationDbContext dbcontext, IWebHostEnvironment webHostEnvironment)
         {
@@ -51,7 +51,7 @@ namespace vop_flags.Controllers
             {
                 _dbContext.Flagdesign.Add(flagdesign);
                 _dbContext.SaveChanges();
-                TempData["success"] = "Details Created Successfully";
+                TempData["success"] = CommonMessage.DetailsCreated;
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -107,7 +107,7 @@ namespace vop_flags.Controllers
             {
                 _dbContext.Flagdesign.Update(flagdesign);
                 _dbContext.SaveChanges();
-                TempData["warning"] = "Details Updated Successfully";
+                TempData["warning"] = CommonMessage.DetailsUpdated;
                 return RedirectToAction(nameof(Index));
 
             }
@@ -144,10 +144,9 @@ namespace vop_flags.Controllers
 
             _dbContext.Flagdesign.Remove(flagdesign);
             _dbContext.SaveChanges();
-            TempData["error"] = "Details Deleted Successfully";
+            TempData["error"] = CommonMessage.DetailsDeleted;
             return RedirectToAction(nameof(Index));
 
         }
     }
 }
-        
