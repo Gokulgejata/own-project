@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Vopflag.Domain.Models;
 
-namespace vop_flags.Controllers
+namespace vop_flags.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {

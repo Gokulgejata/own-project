@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Vopflag.Application.Contracts.Persistence
 {
-    internal interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork: IDisposable
     {
-        public 
+        public IFlagdesignRepository Flagdesign {  get; }
+        public IFlagMaterialRepository FlagMaterial { get; }
+
+        Task saveAsync();
     }
 }

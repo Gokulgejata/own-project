@@ -17,6 +17,8 @@ namespace Vopflag.Infrastructure.Common
 
         }
         public DbSet<Flagdesign> Flagdesign { get; set; }
+        public DbSet<FlagMaterial> FlagMaterial { get; set; }
+        public DbSet<Post> Post { get; set; }   
 
     }
 }

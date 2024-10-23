@@ -21,17 +21,21 @@ namespace Vopflag.Infrastructure.Repositories
         public async Task update(Flagdesign flagdesign)
         {
             var objFromDb = await _dbContext.Flagdesign.FirstOrDefaultAsync(x => x.Id == flagdesign.Id);
+
             if (objFromDb != null)
             {
                 objFromDb.FlagName = flagdesign.FlagName;
                 objFromDb.Types = flagdesign.Types;
+
                 if (flagdesign.Flagview != null)
                 {
                     objFromDb.Flagview = flagdesign.Flagview;
                 }
+
                 _dbContext.Update(objFromDb);
-                
+                await _dbContext.SaveChangesAsync();  // Ensure changes are saved
             }
         }
+
     }
 }

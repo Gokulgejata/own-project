@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vopflag.Infrastructure.Common;
 
@@ -11,9 +12,11 @@ using Vopflag.Infrastructure.Common;
 namespace Vopflag.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022095717_FlagMaterial")]
+    partial class FlagMaterial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,76 +84,6 @@ namespace Vopflag.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Flagdesign");
-                });
-
-            modelBuilder.Entity("Vopflag.Domain.Models.Post", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("BundleAvailability")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FlagImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FlagMaterialId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("FlagMaterialType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("FlagdesignId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("SingleBundlePrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SinglePiecePrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlagMaterialId");
-
-                    b.HasIndex("FlagdesignId");
-
-                    b.ToTable("Post");
-                });
-
-            modelBuilder.Entity("Vopflag.Domain.Models.Post", b =>
-                {
-                    b.HasOne("Vopflag.Domain.Models.FlagMaterial", "flagMaterial")
-                        .WithMany()
-                        .HasForeignKey("FlagMaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vopflag.Domain.Models.Flagdesign", "flagdesign")
-                        .WithMany()
-                        .HasForeignKey("FlagdesignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("flagMaterial");
-
-                    b.Navigation("flagdesign");
                 });
 #pragma warning restore 612, 618
         }

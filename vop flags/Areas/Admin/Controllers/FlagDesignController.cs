@@ -4,34 +4,36 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Vopflag.Domain.Models;
 using Vopflag.Infrastructure.Common;
 using Vopflag.Application.ApplicationConstants;
+using Vopflag.Application.Contracts.Persistence;
 
 
-namespace vop_flags.Controllers
+namespace vop_flags.Areas.Admin.Controllers
 {
     public class FlagDesignController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public FlagDesignController(ApplicationDbContext dbcontext, IWebHostEnvironment webHostEnvironment)
+        public FlagDesignController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
-            _dbContext = dbcontext;
+            _unitOfWork=unitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Flagdesign> Vopflag = _dbContext.Flagdesign.ToList();
+            List<Flagdesign> Vopflag = await _unitOfWork.Flagdesign.GetAllAsync();
+
             return View(Vopflag);
         }
         [HttpGet]
-        public IActionResult create()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult create(Flagdesign flagdesign)
+        public async Task<IActionResult> Create(Flagdesign flagdesign)
         {
             string webRootPath = _webHostEnvironment.WebRootPath;
             var file = HttpContext.Request.Form.Files;
@@ -49,17 +51,17 @@ namespace vop_flags.Controllers
             }
             if (ModelState.IsValid)
             {
-                _dbContext.Flagdesign.Add(flagdesign);
-                _dbContext.SaveChanges();
+               await _unitOfWork.Flagdesign.Create(flagdesign);
+               await _unitOfWork.saveAsync();
                 TempData["success"] = CommonMessage.DetailsCreated;
                 return RedirectToAction(nameof(Index));
             }
             return View();
         }
         [HttpGet]
-        public IActionResult Details(Guid Id)
+        public async Task<IActionResult>Details(Guid Id)
         {
-            var flagdesign = _dbContext.Flagdesign.FirstOrDefault(x => x.Id == Id);
+            var flagdesign = await _unitOfWork.Flagdesign.GetByIdAsync(Id);
 
             if (flagdesign == null)
             {
@@ -69,9 +71,9 @@ namespace vop_flags.Controllers
             return View(flagdesign);
         }
         [HttpGet]
-        public IActionResult Edit(Guid Id)
+        public async Task <IActionResult> Edit(Guid Id)
         {
-            var flagdesign = _dbContext.Flagdesign.FirstOrDefault(x => x.Id == Id);
+            var flagdesign = await _unitOfWork.Flagdesign.GetByIdAsync(Id);
 
             if (flagdesign == null)
             {
@@ -81,7 +83,7 @@ namespace vop_flags.Controllers
             return View(flagdesign);
         }
         [HttpPost]
-        public IActionResult Edit(Flagdesign flagdesign)
+        public async Task <IActionResult> Edit(Flagdesign flagdesign)
         {
             string webRootPath = _webHostEnvironment.WebRootPath;
             var file = HttpContext.Request.Form.Files;
@@ -91,7 +93,7 @@ namespace vop_flags.Controllers
 
                 var upload = Path.Combine(webRootPath, @"images\flagdesign");
                 var extension = Path.GetExtension(file[0].FileName);
-                var objFromDb = _dbContext.Flagdesign.AsNoTracking().FirstOrDefault(x => x.Id == flagdesign.Id);
+                var objFromDb = await _unitOfWork.Flagdesign.GetByIdAsync(flagdesign.Id);
                 var oldImagePath = Path.Combine(webRootPath, objFromDb.Flagview.Trim('\\'));
                 if (System.IO.File.Exists(oldImagePath))
                 {
@@ -105,8 +107,7 @@ namespace vop_flags.Controllers
             }
             if (ModelState.IsValid)
             {
-                _dbContext.Flagdesign.Update(flagdesign);
-                _dbContext.SaveChanges();
+                await _unitOfWork.Flagdesign.update(flagdesign);
                 TempData["warning"] = CommonMessage.DetailsUpdated;
                 return RedirectToAction(nameof(Index));
 
@@ -116,9 +117,9 @@ namespace vop_flags.Controllers
 
         }
         [HttpGet]
-        public IActionResult Delete(Guid Id)
+        public async Task<IActionResult> Delete(Guid Id)
         {
-            var flagdesign = _dbContext.Flagdesign.FirstOrDefault(x => x.Id == Id);
+            var flagdesign = await _unitOfWork.Flagdesign.GetByIdAsync(Id);
 
             if (flagdesign == null)
             {
@@ -129,12 +130,12 @@ namespace vop_flags.Controllers
         }
         [HttpPost]
 
-        public IActionResult Delete(Flagdesign flagdesign)
+        public async Task<IActionResult> Delete(Flagdesign flagdesign)
         {
             string webRootPath = _webHostEnvironment.WebRootPath;
             if (!string.IsNullOrEmpty(flagdesign.Flagview))
             {
-                var objFromDb = _dbContext.Flagdesign.AsNoTracking().FirstOrDefault(x => x.Id == flagdesign.Id);
+                var objFromDb = await _unitOfWork.Flagdesign.GetByIdAsync(flagdesign.Id);
                 var oldImagePath = Path.Combine(webRootPath, objFromDb.Flagview.Trim('\\'));
                 if (System.IO.File.Exists(oldImagePath))
                 {
@@ -142,8 +143,8 @@ namespace vop_flags.Controllers
                 }
             }
 
-            _dbContext.Flagdesign.Remove(flagdesign);
-            _dbContext.SaveChanges();
+            await _unitOfWork.Flagdesign.Delete(flagdesign);
+            await _unitOfWork.saveAsync();
             TempData["error"] = CommonMessage.DetailsDeleted;
             return RedirectToAction(nameof(Index));
 
