@@ -43,6 +43,9 @@ namespace Vopflag.Domain.Models
         public double SingleBundlePrice { get; set; }
 
         [Display(Name="Images")]
-        public string FlagImage {  get; set; }  
+        public string FlagImage {  get; set; }
+
+        [Range(1,5,ErrorMessage = "Rating should be in range of 1 to 5")]
+        public int Ratings { get; set; }
     }
 }

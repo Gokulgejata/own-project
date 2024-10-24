@@ -10,6 +10,7 @@ namespace Vopflag.Application.Contracts.Persistence
     {
         public IFlagdesignRepository Flagdesign {  get; }
         public IFlagMaterialRepository FlagMaterial { get; }
+        public IPostRepository Post { get; }
 
         Task saveAsync();
     }

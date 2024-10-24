@@ -18,10 +18,14 @@ namespace Vopflag.Infrastructure.UnitOFWork
             _dbContext = dbContext; 
             Flagdesign = new FlagDesignRepository(_dbContext);
             FlagMaterial=new FlagMaterialRepository(_dbContext);
+            Post = new PostRepository(_dbContext);
+              
         }
         public IFlagdesignRepository Flagdesign {  get; private set; }
 
         public IFlagMaterialRepository FlagMaterial { get; private set; }
+
+        public IPostRepository Post { get; private set; }
 
         public void Dispose()
 
