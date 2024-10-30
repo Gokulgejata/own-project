@@ -1,0 +1,70 @@
+﻿@model List<Post>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-6 text-uppercase">
+            <h2>Post Designs</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-area="Admin" asp-controller="Post" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Create
+            </a>
+        </div>
+    </div>
+    <hr />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Flag Design</th>
+                    <th class="text-center">Flag Material</th>
+                    <th class="text-center">Ratings</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@(item.flagdesign != null ? item.flagdesign.FlagName : "N/A")</td>
+                        <td>@(item.flagMaterial != null ? item.flagMaterial.MaterialType : "N/A")</td>
+                        <td>@item.Ratings</td>
+                        <td id="table" class="d-flex align-items-center justify-content-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-area="Admin" asp-controller="Post" asp-action="Details" asp-route-id="@item.Id"
+                                   class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Details">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@item.Id"
+                                   class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-area="Admin" asp-controller="Post" asp-action="Delete" asp-route-id="@item.Id"
+                                   class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center text-uppercase text-warning">
+                        No Post Here To Show
+                    </h2>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

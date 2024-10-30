@@ -1,0 +1,105 @@
+﻿@model PostVM
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-uppercase text-center">Delete Post</h2>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-8 border-1 border p-4">
+            <form method="post" enctype="multipart/form-data">
+                <input asp-for="@Model.Post.Id" hidden />
+                <input asp-for="@Model.Post.FlagImage" hidden />
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.Name" class="form-label"></label>
+                            <input asp-for="@Model.Post.Name" class="form-control" disabled/>
+                            <span asp-validation-for="@Model.Post.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.FlagdesignId" class="form-label"></label>
+                            <select asp-for="@Model.Post.FlagdesignId" asp-items="@Model.FlagdesignList" class="form-select"disabled>
+                                <option disabled selected>--Select Flagdesign--</option>
+                            </select>
+                            <span asp-validation-for="@Model.Post.FlagdesignId"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.FlagMaterialId" class="form-label"></label>
+                            <select asp-for="@Model.Post.FlagMaterialId" asp-items="@Model.FlagMaterialList" class="form-select"disabled>
+                                <option disabled selected>--Select Material Type--</option>
+                            </select>
+                            <span asp-validation-for="@Model.Post.FlagMaterialId"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.FlagMaterialType" class="form-label"></label>
+                            <select asp-for="@Model.Post.FlagMaterialType" asp-items="@Model.FlagMaterialTypeList" class="form-select"disabled>
+                                <option disabled selected>--Select Flag Material Type--</option>
+                            </select>
+                            <span asp-validation-for="@Model.Post.FlagMaterialType"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.BundleAvailability" class="form-label"></label>
+                            <select asp-for="@Model.Post.BundleAvailability" asp-items="@Model.BundleAvailabilityList" class="form-select"disabled>
+                                <option disabled selected>--Select Availability--</option>
+                            </select>
+                            <span asp-validation-for="@Model.Post.BundleAvailability"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.SinglePiecePrice" class="form-label"></label>
+                            <input asp-for="@Model.Post.SinglePiecePrice" class="form-control"disabled />
+                            <span asp-validation-for="@Model.Post.SinglePiecePrice"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.SingleBundlePrice" class="form-label"></label>
+                            <input asp-for="@Model.Post.SingleBundlePrice" class="form-control"disabled />
+                            <span asp-validation-for="@Model.Post.SingleBundlePrice"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="@Model.Post.Ratings" class=" form-label"></label>
+                            <input asp-for="@Model.Post.Ratings" class="form-control" disabled/>
+                            <span asp-validation-for="@Model.Post.Ratings"></span>
+                        </div>
+                    </div>
+                   >
+
+                    <div class="col-md-12 text-end">
+                        <div class="mb-3">
+                            <a asp-area="Admin" asp-controller="Post" asp-action="Index" class="btn btn-warning">Back</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            @if (Model.Post.FlagImage != null)
+            {
+                <img src="@Model.Post.FlagImage" width="100%" />
+            }
+
+        </div>
+
+    </div>
+</div>
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

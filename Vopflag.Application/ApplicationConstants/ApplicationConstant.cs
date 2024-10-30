@@ -15,5 +15,12 @@ namespace Vopflag.Application.ApplicationConstants
         public static string DetailsUpdated = "Details Updated Successfully";
         public static string DetailsDeleted = "Details Deleted Successfully";
     }
+    public static class CustomRole
+    {
+        public static string Masteradmin = "MASTERADMIN";
+        public static string Admin = "ADMIN";
+        public static string Customer= "Customer";
+
+    }
 
 }

@@ -9,6 +9,7 @@ using Vopflag.Application.Contracts.Persistence;
 
 namespace vop_flags.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class FlagMaterialController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

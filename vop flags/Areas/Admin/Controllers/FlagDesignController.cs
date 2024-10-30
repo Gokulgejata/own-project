@@ -9,6 +9,7 @@ using Vopflag.Application.Contracts.Persistence;
 
 namespace vop_flags.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class FlagDesignController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -83,40 +84,58 @@ namespace vop_flags.Areas.Admin.Controllers
             return View(flagdesign);
         }
         [HttpPost]
-        public async Task <IActionResult> Edit(Flagdesign flagdesign)
+        public async Task<IActionResult> Edit(Flagdesign flagdesign)
         {
             string webRootPath = _webHostEnvironment.WebRootPath;
             var file = HttpContext.Request.Form.Files;
+
             if (file.Count > 0)
             {
                 string newFileName = Guid.NewGuid().ToString();
-
                 var upload = Path.Combine(webRootPath, @"images\flagdesign");
                 var extension = Path.GetExtension(file[0].FileName);
+
+                // Retrieve the object from the database
                 var objFromDb = await _unitOfWork.Flagdesign.GetByIdAsync(flagdesign.Id);
-                var oldImagePath = Path.Combine(webRootPath, objFromDb.Flagview.Trim('\\'));
-                if (System.IO.File.Exists(oldImagePath))
+
+                if (objFromDb == null)
+                {
+                    // Handle the case where the object is not found in the database.
+                    return NotFound(); // or another appropriate response
+                }
+
+                // Get the old image path only if Flagview is not null
+                var oldImagePath = objFromDb.Flagview != null
+                    ? Path.Combine(webRootPath, objFromDb.Flagview.Trim('\\'))
+                    : null;
+
+                // Delete the old image if it exists
+                if (!string.IsNullOrEmpty(oldImagePath) && System.IO.File.Exists(oldImagePath))
                 {
                     System.IO.File.Delete(oldImagePath);
                 }
+
                 using (var fileStream = new FileStream(Path.Combine(upload, newFileName + extension), FileMode.Create))
                 {
                     file[0].CopyTo(fileStream);
                 }
+
                 flagdesign.Flagview = @"\images\flagdesign\" + newFileName + extension;
             }
+
             if (ModelState.IsValid)
             {
                 await _unitOfWork.Flagdesign.update(flagdesign);
                 TempData["warning"] = CommonMessage.DetailsUpdated;
                 return RedirectToAction(nameof(Index));
-
             }
-            return View();
+
+            return View(flagdesign);
+       
 
 
-        }
-        [HttpGet]
+    }
+    [HttpGet]
         public async Task<IActionResult> Delete(Guid Id)
         {
             var flagdesign = await _unitOfWork.Flagdesign.GetByIdAsync(Id);

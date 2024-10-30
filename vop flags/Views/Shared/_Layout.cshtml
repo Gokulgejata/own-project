@@ -27,12 +27,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="FlagDesign" asp-action="Index">Our Design</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toogle text-dark" href="#" id="navbar-Dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Content Management
+
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbar-dropdown">
+                                <li class="nav-item">
+                                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="FlagDesign" asp-action="Index">Our Design</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="FlagMaterial" asp-action="Index">FlagMaterial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Post" asp-action="Index">Post</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="FlagMaterial" asp-action="Index">FlagMaterial</a>
-                        </li>
+                       
                     </ul>
                 </div>
             </div>

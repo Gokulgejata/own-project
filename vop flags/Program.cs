@@ -1,4 +1,4 @@
-using Microsoft.DotNet.Scaffolding.Shared;
+ using Microsoft.DotNet.Scaffolding.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Vopflag.Application.Contracts.Persistance;
@@ -6,6 +6,7 @@ using Vopflag.Application.Contracts.Persistence;
 using Vopflag.Infrastructure.Common;
 using Vopflag.Infrastructure.Repositories;
 using Vopflag.Infrastructure.UnitOFWork;
+using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

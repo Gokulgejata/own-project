@@ -43,14 +43,16 @@ namespace Vopflag.Infrastructure.Repositories
                 objFromDb.SingleBundlePrice = post.SingleBundlePrice;
                 objFromDb.Ratings = post.Ratings;
 
-                if (post.FlagImage != null)
+                // Update the image only if a new one is provided
+                if (!string.IsNullOrEmpty(post.FlagImage))
                 {
                     objFromDb.FlagImage = post.FlagImage;
                 }
+
                 _dbContext.Update(objFromDb);
-
-
+                await _dbContext.SaveChangesAsync();
             }
         }
+
     }
 }
